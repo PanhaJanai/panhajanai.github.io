@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>departure japanese learning</title>
+  </head>
+  <style>
+
+    /* #flex-container {
+      display: flex;
+    }
+
+    .languages {
+      display: flexbox;
+      flex: 1;
+    }
+
+    .text {
+      flex: 1;
+      font-size: 20px;
+
+      border: 2px solid red;
+    } */
+
+    html {
+      background-color: rgb(30, 30, 38);
+    }
+
+    #flex-container {
+      display: flexbox;
+      color: rgb(255, 255, 255);
+    }
+
+    .text-row {
+      display: flex;
+      flex: 1;
+      margin-bottom: 1em;
+      border-bottom: 1px solid rgb(0, 39, 180);
+    }
+
+    .text-box {
+      flex: 1;
+      /* font-size: 20px; */
+    }
+
+  </style>
+  <script>
+
+    const jp = `
+      もうあなたから愛されることも
+      必要とされることもない
+      そして私はこうして一人ぼっちで
+      
+      あの時あなたはなんて言ったの?
+      届かない言葉は宙を舞う
+      わかってるのに今日もしてしまう
+      叶わぬ願いごとを
+      
+      離さないで
+      ぎゅっと手を握っていて
+      あなたと二人 続くと言って
+      繋いだその手は温かくて
+      優しかった
+      
+      あなたはいつもそうやって私を
+      怒らせて最後に泣かすんだ
+      だけど後になって
+      ごめんねっていうその顔
+      好きだった
+      
+      離さないで
+      ぎゅっと そう思いっきり
+      あなたの腕の中にいたい
+      二人でおでこをあわせながら
+      眠るの
+      
+      もう二度とは会えないってことを知ってたの?
+      
+      離さないで
+      ぎゅっと あなたが好き
+      もう一度だって笑ってくれないの
+      あなたの温もりが消えちゃう前に
+      抱きしめて
+    `;
+    
+    // separate each element by \n
+    const jp_arr = jp.split("\n");
+
+    // for each elements, trim its starting white spaces
+    jp_arr.forEach((s, i) => {
+      jp_arr[i] = s.trimStart();
+    });
+
+    jp_arr.forEach((s, i) => {
+      if (jp_arr[i] == "") {
+        jp_arr.splice(i, 1);
+      }
+    });
+
+    // console.log(jp_arr);
+
+  const rom = `
+    Mō anata kara aisareru koto mo
+    Hitsuyō to sareru koto mo nai
+    Soshite watashi wa kōshite hitoribotchi de
+    
+    Ano toki anata wa nante itta no ?
+    Todokanai kotoba wa chū o mau
+    Wakatteru no ni kyō mo shiteshimau
+    Kanawanu negaigoto o
+    
+    Hanasanaide
+    Gyutto te o nigitteite
+    Anata to ni nin tsuzuku to itte
+    Tsunaida sono te wa atatakakute
+    Yasashikatta
+    
+    Anata wa itsumo sō yatte watashi o
+    Okorasete saigo ni nakasu n da
+    Dakedogo ni natte
+    Gomen ne tteiu sono kao
+    Suki datta
+    
+    Hanasanaide
+    Gyutto sō omoikkiri
+    Anata no ude no nakani itai
+    Ni nin de odeko o awase nagara
+    Nemuru no
+    
+    Mō ni do to wa aenai tte koto o shitteta no ?
+    
+    Hanasanaide
+    Gyutto anata ga suki
+    Mōichido datte warattekurenai no
+    Anata no nukumori ga kiechau mae ni
+    Dakishimete
+  `;
+
+  const rom_arr = rom.split("\n");
+  rom_arr.forEach((s, i) => {
+    rom_arr[i] = s.trimStart();
+  });
+
+  rom_arr.forEach((s, i) => {
+    if (rom_arr[i] == "") {
+      rom_arr.splice(i, 1);
+    }
+  });
+
+  // console.log(rom_arr);
+
+  const en = `
+    From now on, I'll no longer be loved by you,
+
+    And you'll no longer have any need for me...
+
+    ... so I find myself alone.
+
+    What was it you had said?
+
+    The words are floating in the sky above and haven't quite reached me.
+
+    Even though I know the truth, 
+
+    I'm still making wishes that will never come true.
+
+    Don't let me go, 
+
+    Hold my hand tighly,
+
+    And tell me we'll stay together.
+
+    That hand was so warm,
+
+    And kind.
+
+    You would always make me cry, 
+
+    In the same way you always did, 
+
+    But shortly after, 
+
+    You would apologize,
+
+    Making that face I love.
+
+    Don't let me go, 
+
+    Hold me tighly without hesitation.
+
+    I want to be within your arms, 
+
+    And softly sleep,
+
+    With our foreheads touching.
+
+    Did you know that we would never meet again?
+
+    Don't let me go, 
+
+    You're the one I love.
+
+    Won't you smile for me one more time?
+
+    Please hold me,
+
+    Before your warmth fades away...
+  `;
+
+  const en_arr = en.split("\n");
+  en_arr.forEach((s, i) => {
+    en_arr[i] = s.trimStart();
+  });
+
+  en_arr.forEach((s, i) => {
+    if (en_arr[i] == "") {
+      en_arr.splice(i, 1);
+    }
+  });
+
+  // console.log(en_arr);
+
+  document.addEventListener("DOMContentLoaded", function() {
+
+    const japan = document.getElementById("jp");
+    const romaji = document.getElementById("rom");
+    const english = document.getElementById("en");
+
+    /* jp_arr.forEach((s, i) => {
+      const element = document.createElement("div");
+      element.className = "jp-text text";
+      element.append(jp_arr[i]);
+
+      japan.append(element);
+    });    
+
+    rom_arr.forEach((s, i) => {
+      const element = document.createElement("div");
+      element.className = "rom-text text";
+      element.append(rom_arr[i]);
+
+      romaji.append(element);
+    });
+
+    en_arr.forEach((s, i) => {
+      const element = document.createElement("div");
+      element.className = "en-text text";
+      element.append(en_arr[i]);
+
+      english.append(element);
+    }); */
+
+    const container = document.getElementById("flex-container");
+
+    for (let i = 0; i < jp_arr.length; i++) {
+
+      const text_row = document.createElement("div");
+
+      const jp_text_box = document.createElement("div");
+      const rom_text_box = document.createElement("div");
+      const en_text_box = document.createElement("div");
+
+      jp_text_box.className = "jp-text text-box";
+      rom_text_box.className = "rom-text text-box";
+      en_text_box.className = "en-text text-box";
+      
+      jp_text_box.append(jp_arr[i]);
+      rom_text_box.append(rom_arr[i]);
+      en_text_box.append(en_arr[i]);
+
+      text_row.className = "text-row";
+      text_row.append(jp_text_box);
+      text_row.append(rom_text_box);
+      text_row.append(en_text_box);
+
+      container.append(text_row);
+    }
+
+    const flex_container = document.querySelector("#flex-container");
+    flex_container.style.fontSize = "20px";
+
+    document.addEventListener("click", function(Event) {
+
+      let font_size = flex_container.style.fontSize;
+      const curr_font_size = parseInt(flex_container.style.fontSize);
+      const speed = 4;
+
+      if (Event.target.id == "downsize") {
+        font_size = curr_font_size - speed + "px";
+      } else if (Event.target.id == "upsize") {
+        font_size = curr_font_size + speed + "px";
+      }
+
+      flex_container.style.fontSize = font_size;
+      console.log(font_size);
+    });
+
+  });
+
+  </script>
+  <body>
+
+    <button id="downsize">-</button>
+    <button id="upsize">+</button>
+    
+    <div id="flex-container">
+      <!-- <div class="languages" id="jp">
+        
+      </div>
+
+      <div class="languages" id="rom">
+
+      </div>
+
+      <div class="languages" id="en">
+
+      </div> -->
+    </div>
+
+  </body>
+</html>
