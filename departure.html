@@ -3,6 +3,8 @@
 <html lang="en">
   <head>
     <title>departure japanese learning</title>
+    <!-- Make the webpage responsive -->
+    <meta name="viewport" content="initial-scale=1, width=device-width">
   </head>
   <style>
 
@@ -21,11 +23,24 @@
 
       border: 2px solid red;
     } */
+    
+    /* @media (min-width: 600px) {
+      body {
+        background-color: black;
+      }
+    }
+
+    @media (max-width: 599px) {
+      body {
+        background-color: white;
+      }            
+    } */
 
     button {
-      text-align: center;
       width: 20px;
       height: 20px;
+      margin: 2px;
+      padding: 5px;
     }
 
     html {
@@ -53,7 +68,7 @@
   <script>
 
     async function main() {
-      /* const jp = `
+      const jp = `
         もうあなたから愛されることも
         必要とされることもない
         そして私はこうして一人ぼっちで
@@ -88,13 +103,16 @@
         もう一度だって笑ってくれないの
         あなたの温もりが消えちゃう前に
         抱きしめて
-      `; */
+      `;
 
-      const jp = await fetch("departure lyrics jp.txt")
-      .then(res => res.text())
-      .then(res => {
-        return res;
-      });
+      if (!jp) {
+        const jp = await fetch("departure lyrics jp.txt")
+        .then(res => res.text())
+        .then(res => {
+          return res;
+        });
+      }
+      
 
       console.log(jp);
       
@@ -333,17 +351,7 @@
     <button id="upsize">+</button>
     
     <div id="flex-container">
-      <!-- <div class="languages" id="jp">
-        
-      </div>
 
-      <div class="languages" id="rom">
-
-      </div>
-
-      <div class="languages" id="en">
-
-      </div> -->
     </div>
 
   </body>
