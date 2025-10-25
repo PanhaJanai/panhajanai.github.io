@@ -268,6 +268,29 @@
   </div>
 </section>
 
+<style>
+  @keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-item {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.menu-item.animate {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+</style>
+
 <script>
 // ==========================
 // 1️⃣ MENU DATA ARRAY
@@ -372,7 +395,6 @@ const tabsContainer = document.getElementById("menu-tabs");
 const contentContainer = document.getElementById("menu-content");
 
 menuData.forEach((menu, index) => {
-  // Create tab button
   const li = document.createElement("li");
   li.className = "nav-item";
   li.innerHTML = `
@@ -382,7 +404,6 @@ menuData.forEach((menu, index) => {
   `;
   tabsContainer.appendChild(li);
 
-  // Create tab content
   const tabPane = document.createElement("div");
   tabPane.className = `tab-pane fade ${index === 0 ? "show active" : ""}`;
   tabPane.id = menu.id;
@@ -407,6 +428,42 @@ menuData.forEach((menu, index) => {
   `;
   contentContainer.appendChild(tabPane);
 });
+
+
+// ✅ IntersectionObserver for fade-up on scroll
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+      obs.unobserve(entry.target); // only animate once
+    }
+  });
+}, {
+  threshold: 0.2, // trigger when 20% visible
+});
+
+// Observe all menu items initially
+function observeMenuItems(container) {
+  const items = container.querySelectorAll('.menu-item');
+  items.forEach(item => {
+    item.classList.remove('animate');
+    observer.observe(item);
+  });
+}
+
+// ✅ Animate current tab on load
+const firstTab = document.querySelector('.tab-pane.show.active');
+if (firstTab) observeMenuItems(firstTab);
+
+// ✅ Re-observe when tab changes
+document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tab => {
+  tab.addEventListener('shown.bs.tab', e => {
+    const target = document.querySelector(e.target.getAttribute('data-bs-target'));
+    observeMenuItems(target);
+  });
+});
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
